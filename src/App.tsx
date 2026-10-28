@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { MotionConfig } from 'framer-motion';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import FoodCategories from './components/FoodCategories';
@@ -24,20 +25,22 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-brand-black">
-      <Header cartCount={cart.count} onOpenCart={() => setCartOpen(true)} />
-      <main>
-        <HeroSection />
-        <FoodCategories active={activeCategory} onSelect={selectCategory} />
-        <Bestsellers
-          activeCategory={activeCategory}
-          onClear={() => setActiveCategory(null)}
-          onAdd={addToCart}
-        />
-        <DeliveryBanner />
-      </main>
-      <Footer />
-      <ShoppingCart open={cartOpen} onClose={() => setCartOpen(false)} cart={cart} />
-    </div>
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen bg-brand-black">
+        <Header cartCount={cart.count} onOpenCart={() => setCartOpen(true)} />
+        <main>
+          <HeroSection />
+          <FoodCategories active={activeCategory} onSelect={selectCategory} />
+          <Bestsellers
+            activeCategory={activeCategory}
+            onClear={() => setActiveCategory(null)}
+            onAdd={addToCart}
+          />
+          <DeliveryBanner />
+        </main>
+        <Footer />
+        <ShoppingCart open={cartOpen} onClose={() => setCartOpen(false)} cart={cart} />
+      </div>
+    </MotionConfig>
   );
 }

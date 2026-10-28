@@ -42,18 +42,18 @@ export default function DeliveryBanner() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: 0.6 }}
-          className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-brand-orange via-brand-orange to-brand-red px-6 py-10 shadow-glow-red sm:px-10 lg:px-14 lg:py-14"
+          className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-brand-orange via-brand-amber to-brand-orange px-6 py-10 shadow-[0_30px_70px_-30px_rgba(255,152,0,0.8)] sm:px-10 lg:px-14 lg:py-14"
         >
           <svg
             aria-hidden="true"
             viewBox="0 0 1100 320"
             preserveAspectRatio="none"
-            className="pointer-events-none absolute inset-0 h-full w-full opacity-30"
+            className="pointer-events-none absolute inset-0 h-full w-full opacity-20"
           >
             <path
               d="M-20,220 C180,120 300,270 520,190 S820,90 1120,180"
               fill="none"
-              stroke="white"
+              stroke="#090909"
               strokeWidth="2.5"
               strokeDasharray="8 12"
               strokeLinecap="round"
@@ -63,13 +63,13 @@ export default function DeliveryBanner() {
 
           <div className="relative grid items-center gap-10 lg:grid-cols-[1.05fr_0.85fr_1fr]">
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.4em] text-white/75">
+              <p className="text-[11px] font-bold uppercase tracking-[0.4em] text-brand-black/70">
                 Hungry?
               </p>
-              <p className="mt-3 font-script text-4xl leading-tight text-white sm:text-5xl lg:text-[3.4rem]">
+              <p className="mt-3 font-script text-4xl leading-tight text-brand-black sm:text-5xl lg:text-[3.4rem]">
                 We Deliver To You!
               </p>
-              <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/80">
+              <p className="mt-4 max-w-xs text-sm leading-relaxed text-brand-black/75">
                 Hot, fresh and packed with care — straight from our kitchen to your door.
               </p>
             </div>
@@ -84,16 +84,16 @@ export default function DeliveryBanner() {
               />
             </div>
 
-            <div className="rounded-3xl bg-black/20 p-6 backdrop-blur-sm ring-1 ring-white/20">
+            <div className="rounded-3xl bg-brand-black/85 p-6 backdrop-blur-sm ring-1 ring-white/10">
               <p className="font-display text-3xl uppercase leading-none text-white sm:text-4xl">
                 Get 20% Off
               </p>
-              <p className="mt-2 text-[11px] font-bold uppercase tracking-[0.22em] text-white/80">
+              <p className="mt-2 text-[11px] font-bold uppercase tracking-[0.22em] text-white/60">
                 On your first order
               </p>
 
-              <div className="mt-5 rounded-2xl border border-dashed border-white/60 bg-black/15 p-4">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-white/65">
+              <div className="mt-5 rounded-2xl border border-dashed border-white/25 bg-white/5 p-4">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-white/50">
                   Coupon code
                 </p>
                 <div className="mt-2 flex items-center justify-between gap-3">
@@ -104,14 +104,14 @@ export default function DeliveryBanner() {
                     type="button"
                     onClick={copyCode}
                     aria-label={`Copy coupon code ${site.couponCode}`}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-2 text-[10px] font-bold uppercase tracking-[0.14em] text-brand-red transition-colors hover:bg-brand-black hover:text-white"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-brand-orange px-3.5 py-2 text-[10px] font-bold uppercase tracking-[0.14em] text-brand-black transition-colors hover:bg-brand-amber"
                   >
                     {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
                     {copied ? 'Copied' : 'Copy'}
                   </button>
                 </div>
               </div>
-              <p aria-live="polite" className="mt-3 h-4 text-[11px] text-white/85">
+              <p aria-live="polite" className="mt-3 h-4 text-[11px] text-brand-black/70">
                 {copied ? 'Coupon code copied to your clipboard.' : ''}
               </p>
             </div>

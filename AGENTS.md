@@ -22,9 +22,11 @@ docker compose -f docker-compose.base44.yml up -d --build
 - `src/data/site.ts` — brand copy, nav, footer links, contact placeholders.
 - `src/data/menu.ts` — categories and products (prices, descriptions, images).
 - `src/data/images.ts` — photo sources; swap a photo id to change the picture.
-- `src/config.ts` — `ordering.url`; empty means the cart shows a clearly labelled
-  "Checkout Coming Soon" placeholder instead of pretending an order was placed.
-- `src/hooks/useCart.ts` — cart state, quantities and totals.
+- `src/config.ts` — `ordering.url` (empty means the cart shows a clearly labelled
+  "Checkout Coming Soon" placeholder instead of pretending an order was placed)
+  and `video.url` (empty swaps the hero's secondary CTA to "View Offers" instead
+  of opening an empty video modal).
+- `src/hooks/useCart.ts` — cart state, quantities, coupon discount and totals.
 - `src/components/*` — Header, HeroSection, FoodCategories, Bestsellers,
   ProductCard, DeliveryBanner, ShoppingCart, Footer.
 
@@ -36,7 +38,8 @@ docker compose -f docker-compose.base44.yml exec -T web npm run typecheck
 ```
 
 Behaviour to check in the browser: category filter (click a category, click again
-to clear), add to cart, quantity +/- and remove in the cart drawer, coupon copy,
+to clear), add to cart, quantity +/- and remove in the cart drawer, coupon apply
+(`WELCOME20` takes `site.couponDiscount` off the subtotal) and coupon copy,
 mobile hamburger menu, and no horizontal scroll at 375px.
 
 ## Colour system (important)

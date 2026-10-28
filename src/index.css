@@ -8,21 +8,23 @@
    * Channels are stored separately so Tailwind can apply opacity modifiers
    * (e.g. bg-brand-orange/25) while the hex values below stay canonical.
    */
-  --platform-orange-rgb: 237 87 0;
+  --platform-orange-rgb: 255 152 0;
+  --warm-yellow-rgb: 255 176 46;
   --fresh-red-rgb: 198 0 0;
   --deep-black-rgb: 9 9 9;
   --charcoal-black-rgb: 23 23 23;
   --pure-white-rgb: 255 255 255;
   --light-gray-rgb: 245 245 245;
 
-  --platform-orange: #ed5700;
+  --platform-orange: #ff9800;
+  --warm-yellow: #ffb02e;
   --fresh-red: #c60000;
   --deep-black: #090909;
   --charcoal-black: #171717;
   --pure-white: #ffffff;
   --light-gray: #f5f5f5;
 
-  --gradient-brand: linear-gradient(135deg, var(--platform-orange) 0%, var(--fresh-red) 100%);
+  --gradient-brand: linear-gradient(135deg, var(--platform-orange) 0%, var(--warm-yellow) 100%);
 }
 
 @layer base {

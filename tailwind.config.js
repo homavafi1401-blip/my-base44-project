@@ -7,6 +7,7 @@ export default {
         // Channel vars from src/index.css keep opacity modifiers (e.g. /25) working.
         brand: {
           orange: 'rgb(var(--platform-orange-rgb) / <alpha-value>)',
+          amber: 'rgb(var(--warm-yellow-rgb) / <alpha-value>)',
           red: 'rgb(var(--fresh-red-rgb) / <alpha-value>)',
           black: 'rgb(var(--deep-black-rgb) / <alpha-value>)',
           charcoal: 'rgb(var(--charcoal-black-rgb) / <alpha-value>)',
@@ -20,7 +21,8 @@ export default {
         script: ['Caveat', 'Segoe Script', 'cursive'],
       },
       boxShadow: {
-        'glow-orange': '0 14px 40px -12px rgba(237, 87, 0, 0.65)',
+        'glow-orange': '0 14px 40px -12px rgba(255, 152, 0, 0.55)',
+        'glow-amber': '0 16px 44px -12px rgba(255, 176, 46, 0.5)',
         'glow-red': '0 18px 46px -14px rgba(198, 0, 0, 0.55)',
       },
       keyframes: {

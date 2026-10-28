@@ -12,3 +12,12 @@ export const ordering = {
   placeholderNote:
     'Checkout is not connected yet. Add your ordering URL in src/config.ts to take real orders.',
 };
+
+/**
+ * Optional brand video (an MP4/WebM URL). Leave empty and the hero's secondary
+ * button links to the offers section instead of opening an empty video modal.
+ */
+export const video = {
+  url: '',
+  title: 'TastyBites — behind the grill',
+};

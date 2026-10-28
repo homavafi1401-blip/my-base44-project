@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { Beef, CupSoda, Drumstick, IceCreamBowl, Pizza, Utensils } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { categories, type CategoryId, type CategoryIcon } from '../data/menu';
@@ -19,7 +20,13 @@ type FoodCategoriesProps = {
 export default function FoodCategories({ active, onSelect }: FoodCategoriesProps) {
   return (
     <section aria-label="Food categories" className="relative z-30 -mt-16 lg:-mt-20">
-      <div className="container-page">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.5 }}
+        className="container-page"
+      >
         <div className="rounded-[26px] border border-black/5 bg-brand-gray p-2.5 shadow-[0_34px_70px_-32px_rgba(0,0,0,0.85)] sm:p-4">
           <ul className="no-scrollbar flex snap-x snap-mandatory gap-1 overflow-x-auto sm:grid sm:grid-cols-3 sm:gap-0 sm:overflow-visible lg:grid-cols-6">
             {categories.map((category) => {
@@ -67,7 +74,7 @@ export default function FoodCategories({ active, onSelect }: FoodCategoriesProps
             })}
           </ul>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

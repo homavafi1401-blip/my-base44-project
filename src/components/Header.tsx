@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Flame, Menu as MenuIcon, ShoppingBag, X } from 'lucide-react';
 import { navItems, site } from '../data/site';
+import { ordering } from '../config';
 import { useActiveSection } from '../hooks/useActiveSection';
 
 const sectionIds = navItems.map((item) => item.id);
@@ -82,7 +83,7 @@ export default function Header({ cartCount, onOpenCart }: HeaderProps) {
                 key={cartCount}
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="absolute -right-1 -top-1 grid h-5 min-w-[20px] place-items-center rounded-full bg-brand-orange px-1 text-[10px] font-bold text-white"
+                className="absolute -right-1 -top-1 grid h-5 min-w-[20px] place-items-center rounded-full bg-brand-orange px-1 text-[10px] font-bold text-brand-black"
               >
                 {cartCount}
               </motion.span>
@@ -90,8 +91,9 @@ export default function Header({ cartCount, onOpenCart }: HeaderProps) {
           </button>
 
           <a
-            href="#menu"
-            className="hidden items-center gap-2 rounded-full bg-brand-orange px-5 py-3 text-[11px] font-bold uppercase tracking-[0.14em] text-white transition-all duration-300 hover:bg-brand-red hover:shadow-glow-red sm:inline-flex"
+            href={ordering.url || '#menu'}
+            {...(ordering.url ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            className="hidden items-center gap-2 rounded-full bg-brand-orange px-5 py-3 text-[11px] font-bold uppercase tracking-[0.14em] text-brand-black transition-all duration-300 hover:bg-brand-amber hover:shadow-glow-amber sm:inline-flex"
           >
             <ShoppingBag className="h-4 w-4" />
             Order Online
@@ -135,9 +137,10 @@ export default function Header({ cartCount, onOpenCart }: HeaderProps) {
                 </a>
               ))}
               <a
-                href="#menu"
+                href={ordering.url || '#menu'}
+                {...(ordering.url ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                 onClick={() => setMobileOpen(false)}
-                className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-brand-orange px-5 py-3 text-xs font-bold uppercase tracking-[0.14em] text-white"
+                className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-brand-orange px-5 py-3 text-xs font-bold uppercase tracking-[0.14em] text-brand-black"
               >
                 <ShoppingBag className="h-4 w-4" />
                 Order Online

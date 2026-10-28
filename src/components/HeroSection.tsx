@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import type { MouseEvent } from 'react';
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
-import { ArrowRight, Play, Star, X } from 'lucide-react';
+import { ArrowRight, BadgePercent, Play, Star, X } from 'lucide-react';
 import Particles from './Particles';
 import { photo } from '../data/images';
+import { video } from '../config';
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 26 },
@@ -60,17 +61,17 @@ export default function HeroSection() {
             <span className="block font-script text-[3.4rem] leading-[0.9] text-white sm:text-6xl lg:text-7xl">
               Delicious
             </span>
-            <span className="mt-2 block font-display text-[3.9rem] uppercase leading-[0.85] text-brand-orange drop-shadow-[0_14px_44px_rgba(198,0,0,0.55)] sm:text-7xl lg:text-[5.6rem]">
+            <span className="mt-2 block font-display text-[3.9rem] uppercase leading-[0.85] text-brand-orange drop-shadow-[0_14px_44px_rgba(255,152,0,0.45)] sm:text-7xl lg:text-[5.6rem]">
               Burgers
             </span>
           </motion.h1>
 
           <motion.p
             {...fadeUp(0.2)}
-            className="mt-6 text-[11px] font-bold uppercase tracking-[0.42em] text-white/75"
+            className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2 text-[10px] font-bold uppercase tracking-[0.32em] text-white/75 backdrop-blur"
           >
-            Hot <span className="mx-1 text-brand-orange">•</span> Fresh
-            <span className="mx-1 text-brand-orange">•</span> Tasty
+            Hot <span className="text-brand-orange">•</span> Fresh
+            <span className="text-brand-orange">•</span> Tasty
           </motion.p>
 
           <motion.p
@@ -86,21 +87,33 @@ export default function HeroSection() {
           >
             <a
               href="#menu"
-              className="group inline-flex items-center gap-2 rounded-full bg-brand-orange px-7 py-4 text-[11px] font-bold uppercase tracking-[0.16em] text-white shadow-glow-orange transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-red"
+              className="group inline-flex items-center gap-2 rounded-full bg-brand-orange px-7 py-4 text-[11px] font-bold uppercase tracking-[0.16em] text-brand-black shadow-glow-orange transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-amber hover:shadow-glow-amber"
             >
               Order Now
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
-            <button
-              type="button"
-              onClick={() => setVideoOpen(true)}
-              className="inline-flex items-center gap-3 rounded-full border border-white/25 bg-white/5 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-white backdrop-blur transition-all duration-300 hover:border-brand-orange hover:text-brand-orange"
-            >
-              <span className="grid h-8 w-8 place-items-center rounded-full bg-white/10">
-                <Play className="h-3.5 w-3.5 fill-current" />
-              </span>
-              Watch Video
-            </button>
+            {video.url ? (
+              <button
+                type="button"
+                onClick={() => setVideoOpen(true)}
+                className="inline-flex items-center gap-3 rounded-full border border-white/25 bg-white/5 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-white backdrop-blur transition-all duration-300 hover:border-brand-orange hover:text-brand-orange"
+              >
+                <span className="grid h-8 w-8 place-items-center rounded-full bg-white/10">
+                  <Play className="h-3.5 w-3.5 fill-current" />
+                </span>
+                Watch Video
+              </button>
+            ) : (
+              <a
+                href="#offers"
+                className="inline-flex items-center gap-3 rounded-full border border-white/25 bg-white/5 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-white backdrop-blur transition-all duration-300 hover:border-brand-orange hover:text-brand-orange"
+              >
+                <span className="grid h-8 w-8 place-items-center rounded-full bg-white/10">
+                  <BadgePercent className="h-4 w-4" />
+                </span>
+                View Offers
+              </a>
+            )}
           </motion.div>
         </div>
 
@@ -108,7 +121,7 @@ export default function HeroSection() {
         <div className="relative mx-auto w-full max-w-[520px] lg:max-w-[600px]">
           <div
             aria-hidden="true"
-            className="absolute left-1/2 top-1/2 -z-10 h-[115%] w-[115%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(237,87,0,0.32),transparent_62%)] blur-2xl"
+            className="absolute left-1/2 top-1/2 -z-10 h-[115%] w-[115%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,152,0,0.32),transparent_62%)] blur-2xl"
           />
           <motion.div style={{ x: parallaxX, y: parallaxY }} className="relative">
             <div className="animate-float-y">
@@ -156,12 +169,16 @@ export default function HeroSection() {
                 <textPath href="#hero-badge-circle">100% FRESH &amp; PREMIUM •</textPath>
               </text>
             </svg>
-            <Star className="h-6 w-6 text-brand-orange" strokeWidth={2.2} />
+            <span className="flex items-center gap-0.5" aria-hidden="true">
+              <Star className="h-3.5 w-3.5 fill-brand-orange text-brand-orange" />
+              <Star className="h-5 w-5 fill-brand-orange text-brand-orange" />
+              <Star className="h-3.5 w-3.5 fill-brand-orange text-brand-orange" />
+            </span>
           </motion.div>
         </div>
       </div>
 
-      {videoOpen && (
+      {video.url && videoOpen && (
         <div
           role="dialog"
           aria-modal="true"
@@ -182,24 +199,16 @@ export default function HeroSection() {
             >
               <X className="h-4 w-4" />
             </button>
-            <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-brand-orange">
-              <Play className="h-6 w-6 fill-white text-white" />
-            </span>
-            <h2 className="mt-5 font-display text-2xl uppercase tracking-wide text-white">
-              Our brand film is coming soon
+            <h2 className="pr-10 text-left font-display text-xl uppercase tracking-wide text-white">
+              {video.title}
             </h2>
-            <p className="mt-2 text-sm leading-relaxed text-white/50">
-              The kitchen tour lands here as soon as it is shot. Meanwhile, order something
-              delicious.
-            </p>
-            <a
-              href="#menu"
-              onClick={() => setVideoOpen(false)}
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-brand-orange px-6 py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-white transition-colors hover:bg-brand-red"
-            >
-              Browse the menu
-              <ArrowRight className="h-4 w-4" />
-            </a>
+            <video
+              src={video.url}
+              controls
+              autoPlay
+              playsInline
+              className="mt-4 w-full rounded-2xl bg-black"
+            />
           </div>
         </div>
       )}

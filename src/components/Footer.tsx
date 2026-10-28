@@ -46,13 +46,24 @@ export default function Footer() {
               const Icon = socialIcons[social.name];
               return (
                 <li key={social.name}>
-                  <a
-                    href={social.href}
-                    aria-label={social.label}
-                    className="grid h-9 w-9 place-items-center rounded-full border border-white/10 text-white/55 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-orange hover:text-brand-orange"
-                  >
-                    <Icon className="h-4 w-4" />
-                  </a>
+                  {social.href ? (
+                    <a
+                      href={social.href}
+                      aria-label={social.label}
+                      className="grid h-9 w-9 place-items-center rounded-full border border-white/10 text-white/55 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-orange hover:text-brand-orange"
+                    >
+                      <Icon className="h-4 w-4" />
+                    </a>
+                  ) : (
+                    <span
+                      aria-disabled="true"
+                      title={`${social.label} — profile link coming soon`}
+                      className="grid h-9 w-9 cursor-default place-items-center rounded-full border border-white/10 text-white/30"
+                    >
+                      <Icon className="h-4 w-4" />
+                      <span className="sr-only">{social.label} — link coming soon</span>
+                    </span>
+                  )}
                 </li>
               );
             })}
@@ -126,22 +137,41 @@ export default function Footer() {
             Download Our App
           </h2>
           <div className="mt-5 space-y-3">
-            {appBadges.map((badge) => (
-              <button
-                key={badge.label}
-                type="button"
-                title="App link coming soon"
-                className="flex w-full items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-left transition-colors hover:border-brand-orange"
-              >
-                <Smartphone className="h-5 w-5 text-brand-orange" />
-                <span className="leading-tight">
-                  <span className="block text-[9px] uppercase tracking-[0.18em] text-white/40">
-                    {badge.caption}
+            {appBadges.map((badge) => {
+              const content = (
+                <>
+                  <Smartphone className="h-5 w-5 text-brand-orange" />
+                  <span className="leading-tight">
+                    <span className="block text-[9px] uppercase tracking-[0.18em] text-white/40">
+                      {badge.caption}
+                    </span>
+                    <span className="block text-sm font-semibold text-white">{badge.label}</span>
                   </span>
-                  <span className="block text-sm font-semibold text-white">{badge.label}</span>
+                </>
+              );
+              const className =
+                'flex w-full items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-left transition-colors hover:border-brand-orange';
+              return badge.href ? (
+                <a
+                  key={badge.label}
+                  href={badge.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={className}
+                >
+                  {content}
+                </a>
+              ) : (
+                <span
+                  key={badge.label}
+                  aria-disabled="true"
+                  title="App link coming soon"
+                  className={`${className} cursor-default hover:border-white/10`}
+                >
+                  {content}
                 </span>
-              </button>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

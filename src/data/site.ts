@@ -12,6 +12,8 @@ export const site = {
   email: 'hello@example.com',
   address: '123 Placeholder Street, New York, USA',
   couponCode: 'WELCOME20',
+  /** Fraction taken off the subtotal when the coupon above is applied. */
+  couponDiscount: 0.2,
   copyright: `© ${new Date().getFullYear()} TastyBites. All Rights Reserved.`,
 };
 
@@ -48,14 +50,15 @@ export type SocialName = 'facebook' | 'instagram' | 'twitter' | 'tiktok' | 'yout
 
 /** Placeholder destinations — replace with the real profiles. */
 export const socials: { name: SocialName; label: string; href: string }[] = [
-  { name: 'facebook', label: 'Facebook', href: '#' },
-  { name: 'instagram', label: 'Instagram', href: '#' },
-  { name: 'twitter', label: 'Twitter', href: '#' },
-  { name: 'tiktok', label: 'TikTok', href: '#' },
-  { name: 'youtube', label: 'YouTube', href: '#' },
+  { name: 'facebook', label: 'Facebook', href: '' },
+  { name: 'instagram', label: 'Instagram', href: '' },
+  { name: 'twitter', label: 'Twitter', href: '' },
+  { name: 'tiktok', label: 'TikTok', href: '' },
+  { name: 'youtube', label: 'YouTube', href: '' },
 ];
 
+/** Add a store URL to `href` to turn a badge into a real link. */
 export const appBadges = [
-  { label: 'App Store', caption: 'Download on the' },
-  { label: 'Google Play', caption: 'Get it on' },
+  { label: 'App Store', caption: 'Download on the', href: '' },
+  { label: 'Google Play', caption: 'Get it on', href: '' },
 ];

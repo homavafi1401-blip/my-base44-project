@@ -42,7 +42,7 @@ export default function ProductCard({ product, onAdd }: ProductCardProps) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal via-brand-charcoal/10 to-transparent" />
         {product.badge && (
-          <span className="absolute right-3 top-3 grid h-14 w-14 place-items-center rounded-full bg-brand-orange text-center text-[9px] font-bold uppercase leading-tight tracking-wide text-white shadow-glow-orange">
+          <span className="absolute right-3 top-3 grid h-14 w-14 place-items-center rounded-full bg-brand-orange text-center text-[9px] font-bold uppercase leading-tight tracking-wide text-brand-black shadow-glow-orange">
             {product.badge}
           </span>
         )}
@@ -60,8 +60,8 @@ export default function ProductCard({ product, onAdd }: ProductCardProps) {
             type="button"
             onClick={handleAdd}
             aria-label={`Add ${product.name} to cart`}
-            className={`grid h-11 w-11 place-items-center rounded-full text-white shadow-glow-orange transition-all duration-300 hover:scale-105 hover:bg-brand-red ${
-              added ? 'bg-brand-red' : 'bg-brand-orange'
+            className={`grid h-11 w-11 place-items-center rounded-full text-brand-black shadow-glow-orange transition-all duration-300 hover:scale-105 hover:bg-brand-amber ${
+              added ? 'bg-brand-amber' : 'bg-brand-orange'
             }`}
           >
             <motion.span

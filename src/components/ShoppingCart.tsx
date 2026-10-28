@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import type { FormEvent } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, Minus, Plus, ShoppingBag, Trash2, X } from 'lucide-react';
 import { ordering } from '../config';
@@ -22,8 +23,24 @@ export default function ShoppingCart({ open, onClose, cart }: ShoppingCartProps)
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [open, onClose]);
 
+  const [codeInput, setCodeInput] = useState('');
+  const [codeError, setCodeError] = useState('');
+
   const handleCheckout = () => {
     if (ordering.url) window.open(ordering.url, '_blank', 'noopener,noreferrer');
+  };
+
+  const browseMenu = () => {
+    onClose();
+    document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const submitCoupon = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!codeInput.trim()) return;
+    const applied = cart.applyCoupon(codeInput);
+    setCodeError(applied ? '' : 'That coupon code is not valid.');
+    if (applied) setCodeInput('');
   };
 
   return (
@@ -87,8 +104,8 @@ export default function ShoppingCart({ open, onClose, cart }: ShoppingCartProps)
                 </p>
                 <button
                   type="button"
-                  onClick={onClose}
-                  className="inline-flex items-center gap-2 rounded-full bg-brand-orange px-5 py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-white transition-colors hover:bg-brand-red"
+                  onClick={browseMenu}
+                  className="inline-flex items-center gap-2 rounded-full bg-brand-orange px-5 py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-brand-black transition-colors hover:bg-brand-amber"
                 >
                   Browse the menu
                   <ArrowRight className="h-4 w-4" />
@@ -153,23 +170,72 @@ export default function ShoppingCart({ open, onClose, cart }: ShoppingCartProps)
                 </ul>
 
                 <div className="border-t border-white/10 px-5 py-5">
+                  <div className="mb-4">
+                    {cart.coupon ? (
+                      <div className="flex items-center justify-between gap-3 rounded-xl border border-brand-orange/40 bg-brand-orange/10 px-3 py-2">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-orange">
+                          {cart.coupon} applied · {Math.round(cart.discountRate * 100)}% off
+                        </p>
+                        <button
+                          type="button"
+                          onClick={cart.removeCoupon}
+                          aria-label="Remove coupon"
+                          className="text-white/45 transition-colors hover:text-brand-orange"
+                        >
+                          <X className="h-3.5 w-3.5" />
+                        </button>
+                      </div>
+                    ) : (
+                      <form onSubmit={submitCoupon} className="flex gap-2">
+                        <label htmlFor="coupon-code" className="sr-only">
+                          Coupon code
+                        </label>
+                        <input
+                          id="coupon-code"
+                          value={codeInput}
+                          onChange={(event) => setCodeInput(event.target.value)}
+                          placeholder="Coupon code"
+                          autoComplete="off"
+                          className="min-w-0 flex-1 rounded-xl border border-white/15 bg-white/5 px-3 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-white placeholder:normal-case placeholder:tracking-normal placeholder:text-white/35 focus:border-brand-orange focus:outline-none"
+                        />
+                        <button
+                          type="submit"
+                          className="rounded-xl bg-brand-orange px-4 py-2.5 text-[10px] font-bold uppercase tracking-[0.14em] text-brand-black transition-colors hover:bg-brand-amber"
+                        >
+                          Apply
+                        </button>
+                      </form>
+                    )}
+                    {codeError && (
+                      <p role="alert" className="mt-2 text-[11px] text-[#ff8a80]">
+                        {codeError}
+                      </p>
+                    )}
+                  </div>
+
                   <div className="flex items-center justify-between text-sm text-white/50">
                     <span>Subtotal</span>
                     <span>{formatPrice(cart.subtotal)}</span>
                   </div>
+                  {cart.discount > 0 && (
+                    <div className="mt-2 flex items-center justify-between text-sm text-brand-amber">
+                      <span>Discount ({Math.round(cart.discountRate * 100)}%)</span>
+                      <span>−{formatPrice(cart.discount)}</span>
+                    </div>
+                  )}
                   <div className="mt-2 flex items-center justify-between">
                     <span className="text-sm font-semibold uppercase tracking-[0.16em] text-white">
                       Total
                     </span>
                     <span className="font-display text-2xl text-brand-orange">
-                      {formatPrice(cart.subtotal)}
+                      {formatPrice(cart.total)}
                     </span>
                   </div>
 
                   <button
                     type="button"
                     onClick={handleCheckout}
-                    className="mt-4 w-full rounded-full bg-brand-orange px-6 py-3.5 text-[11px] font-bold uppercase tracking-[0.16em] text-white shadow-glow-orange transition-colors hover:bg-brand-red"
+                    className="mt-4 w-full rounded-full bg-brand-orange px-6 py-3.5 text-[11px] font-bold uppercase tracking-[0.16em] text-brand-black shadow-glow-orange transition-colors hover:bg-brand-amber"
                   >
                     {ordering.url ? ordering.label : 'Checkout Coming Soon'}
                   </button>
