@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /*
+   * Brand palette — single source of truth for every color on the site.
+   * Channels are stored separately so Tailwind can apply opacity modifiers
+   * (e.g. bg-brand-orange/25) while the hex values below stay canonical.
+   */
+  --platform-orange-rgb: 237 87 0;
+  --fresh-red-rgb: 198 0 0;
+  --deep-black-rgb: 9 9 9;
+  --charcoal-black-rgb: 23 23 23;
+  --pure-white-rgb: 255 255 255;
+  --light-gray-rgb: 245 245 245;
+
+  --platform-orange: #ed5700;
+  --fresh-red: #c60000;
+  --deep-black: #090909;
+  --charcoal-black: #171717;
+  --pure-white: #ffffff;
+  --light-gray: #f5f5f5;
+
+  --gradient-brand: linear-gradient(135deg, var(--platform-orange) 0%, var(--fresh-red) 100%);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 92px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-brand-black font-sans text-brand-white antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--platform-orange);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--platform-orange);
+    outline-offset: 3px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--deep-black);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2a2a2a;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--platform-orange);
+  }
+}
+
+@layer utilities {
+  .container-page {
+    @apply mx-auto w-full max-w-[1340px] px-5 sm:px-8;
+  }
+
+  .text-gradient-brand {
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Fades a rectangular food photo into the dark page background. */
+  .food-cutout {
+    -webkit-mask-image: radial-gradient(closest-side, #000 62%, rgba(0, 0, 0, 0.55) 78%, transparent 98%);
+    mask-image: radial-gradient(closest-side, #000 62%, rgba(0, 0, 0, 0.55) 78%, transparent 98%);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hairline {
+    background: linear-gradient(90deg, transparent, var(--platform-orange), transparent);
+  }
+}
+
+/* ---- Ambient sparks in the hero ---- */
+.spark {
+  animation-name: spark-rise;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes spark-rise {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.9;
+  }
+  70% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translate3d(14px, -150px, 0) scale(0.35);
+    opacity: 0;
+  }
+}
+
+/* ---- Slow drifting smoke ---- */
+.smoke {
+  animation: smoke-drift 22s ease-in-out infinite alternate;
+}
+
+@keyframes smoke-drift {
+  0% {
+    transform: translate3d(-3%, 2%, 0) scale(1);
+    opacity: 0.45;
+  }
+  100% {
+    transform: translate3d(4%, -3%, 0) scale(1.12);
+    opacity: 0.7;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
