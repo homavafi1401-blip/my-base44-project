@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: #090909;
+    color: #ffffff;
+    font-family: 'Poppins', system-ui, sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: #ff9800;
+    color: #090909;
+  }
+
+  :focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+  }
+
+  /* Dark scrollbars, on-brand */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #3a3a3a #111111;
+  }
+  *::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+  *::-webkit-scrollbar-track {
+    background: #111111;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: #3a3a3a;
+    border-radius: 999px;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-[1280px] px-5 sm:px-8;
+  }
+
+  .display {
+    @apply font-display uppercase leading-[0.9];
+    letter-spacing: -0.02em;
+  }
+
+  /* Distressed, printed-ink texture over the orange display type */
+  .text-distressed {
+    background-image:
+      linear-gradient(180deg, #ffb64d 0%, #ff9800 55%, #f07c00 100%),
+      repeating-linear-gradient(
+        92deg,
+        rgba(0, 0, 0, 0.11) 0px,
+        rgba(0, 0, 0, 0.11) 1px,
+        transparent 1px,
+        transparent 7px
+      );
+    background-blend-mode: multiply;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Feathers a food photo into the dark background so it reads as a cut-out */
+  .img-mask {
+    -webkit-mask-image: radial-gradient(ellipse 62% 62% at 50% 50%, #000 58%, rgba(0, 0, 0, 0.55) 78%, transparent 96%);
+    mask-image: radial-gradient(ellipse 62% 62% at 50% 50%, #000 58%, rgba(0, 0, 0, 0.55) 78%, transparent 96%);
+  }
+
+  .btn-brand {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand px-7 py-3.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-ink transition-all duration-300;
+  }
+  .btn-brand:hover {
+    @apply bg-gold;
+    box-shadow: 0 0 32px rgba(255, 152, 0, 0.55);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/25 px-6 py-3.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-white transition-all duration-300;
+  }
+  .btn-ghost:hover {
+    @apply border-brand text-brand;
+  }
+
+  .section-eyebrow {
+    @apply font-script text-xl text-brand;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .ember {
+    position: absolute;
+    border-radius: 9999px;
+    background: radial-gradient(circle, #ffca7a 0%, #ff9800 45%, rgba(255, 152, 0, 0) 70%);
+    pointer-events: none;
+  }
+  .text-shadow-glow {
+    text-shadow: 0 0 45px rgba(255, 152, 0, 0.28);
+  }
+  .mask-fade-r {
+    -webkit-mask-image: linear-gradient(90deg, #000 70%, transparent 100%);
+    mask-image: linear-gradient(90deg, #000 70%, transparent 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
